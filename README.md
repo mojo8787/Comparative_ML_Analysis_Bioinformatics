@@ -11,50 +11,53 @@ including Random Forest, Support Vector Regression (SVR), and other regression m
   - Key Libraries: `tidyverse`, `caret`, `e1071`, `rpart`, `randomForest`, `ggplot2`, `readr`, `ggpubr`
 
 ## Data Description
-(Include a brief description of the data used in your project, its source, and any preprocessing steps you performed.)
+The project uses preprocessed gene expression data, including various features and a target variable (score). The data is analyzed to understand the relationships between different genes and their 
+expression levels.
 
 ## Machine Learning Models and Techniques
-(Describe the various machine learning models and techniques used in your analysis, such as Random Forest, SVR, feature selection methods, etc.)
+- **Random Forest Regression (Python)**: Used for hyperparameter tuning and model fitting.
+- **Support Vector Regression (SVR) (Python & R)**: Applied for modeling gene expression data with linear kernel.
+- **Feature Selection and Analysis**: Mutual Information, Recursive Feature Elimination (RFE), and Correlation Analysis.
+- **Model Evaluation**: Using Mean Squared Error (MSE) and Root Mean Squared Error (RMSE).
+- **Baseline Comparison**: Comparison with a dummy regressor to establish baseline performance.
 
 ## Visualizations
-The following visualizations represent key insights from our analysis:
+Key visualizations from the analysis are presented below:
 
 ### Line Plot
 ![Line Plot](images/line_plot.png)
-(A brief description of what the line plot represents and insights derived from it.)
+*Description of the line plot.*
 
 ### Scatter Plot
 ![Scatter Plot](images/scatter_plot.png)
-(Explanation of the scatter plot findings and its significance in your analysis.)
+*Explanation of the scatter plot findings.*
 
 ### Bar Chart
 ![Bar Chart](images/bar_chart.png)
-(Details about the data shown in the bar chart and how it relates to your project's goals.)
+*Details about the data shown in the bar chart.*
 
 ### Density Plot
 ![Density Plot](images/density_plot.png)
-(Interpretation of the density plot and what it reveals about your data.)
+*Interpretation of the density plot.*
 
 ### Joint Density Plot
 ![Joint Density Plot](images/joint_density_plot.png)
-(Insights from the joint density plot and its relevance to the gene expression analysis.)
+*Insights from the joint density plot.*
 
 ## Results and Discussion
-(Summarize the key findings of your project, any interesting patterns or observations from the analysis, and potential implications of these results.)
+Summary of key findings, including feature importance, model performance comparison, and visualization insights.
 
 ## Installation and Setup
-(Provide instructions on how to set up and run your project, including any necessary dependencies and environment setup.)
+Instructions on setting up the environment and running the scripts.
 
 ## Usage
-(Detail how to use the project, including how to run the scripts and utilize the analysis.)
+Details on how to run the scripts and utilize the analysis.
 
 ## Contributing
-(Information on how others can contribute to the project, if applicable.)
+Information on how others can contribute to the project.
 
 ## Contact
-For more information or inquiries, please contact [Your Contact Information].
+For more information or inquiries, please contact [motasem.youniss@gmail.com](mailto:motasem.youniss@gmail.com).
 
 ---
-
-(Feel free to add or modify sections as necessary for your project.)
 
