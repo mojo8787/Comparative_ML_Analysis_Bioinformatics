@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 from sklearn.dummy import DummyRegressor
 from sklearn.feature_selection import mutual_info_regression, RFE
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from kernel_methods import rbf_kernel, polynomial_kernel, svm_with_custom_kernel
 
 # Load the preprocessed data
 file_path = 'Preprocessed_Data (1).xlsx'
@@ -85,3 +86,17 @@ print("Cross-validated RMSE scores for SVR model:", svr_rmse_cv)
 print(cv_results_summary)
 
 # Note: The heatmap is generated but not displayed in this script output.
+
+# Use custom RBF kernel
+rbf_model = svm_with_custom_kernel(X_train, y_train, rbf_kernel, gamma=0.1)
+rbf_predictions = rbf_model.predict(X_test)
+
+# Use custom polynomial kernel
+poly_model = svm_with_custom_kernel(X_train, y_train, polynomial_kernel, degree=3, coef0=1)
+poly_predictions = poly_model.predict(X_test)
+
+# Evaluate models
+print("RBF Kernel MSE:", mean_squared_error(y_test, rbf_predictions))
+print("RBF Kernel R2:", r2_score(y_test, rbf_predictions))
+print("Polynomial Kernel MSE:", mean_squared_error(y_test, poly_predictions))
+print("Polynomial Kernel R2:", r2_score(y_test, poly_predictions))
