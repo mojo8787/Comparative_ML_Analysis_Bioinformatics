@@ -1,16 +1,19 @@
-library(tidyverse)        # For data manipulation and visualization
-library(caret)            # For machine learning
-library(e1071)            # For support vector machines
-library(rpart)            # For decision trees
-library(readxl)           # For reading Excel files
-library(randomForest)     # For the random forest algorithm used in RFE
+library(tidyverse) # For data manipulation and visualization
+library(caret) # For machine learning
+library(e1071) # For support vector machines
+library(rpart) # For decision trees
+library(readxl) # For reading Excel files
+library(randomForest) # For the random forest algorithm used in RFE
+library(readr) # For reading CSV files
+library(dplyr) # For data manipulation
+library(ggplot2) # For data visualization
 
 # Set the file path and load the preprocessed data
-file_path <- '/Users/Saham/desktop/NEW_ML/Preprocessed_Data (1).xlsx'
+file_path <- "/Users/Saham/desktop/NEW_ML/Preprocessed_Data (1).xlsx"
 preprocessed_data <- read_excel(file_path)
 
 # Separate features and target variable
-features <- preprocessed_data %>% select(-c('score', 'ProbeID', 'GeneSymbol'))
+features <- preprocessed_data %>% select(-c("score", "ProbeID", "GeneSymbol"))
 target <- preprocessed_data$score
 
 # Ensure all features are numeric for correlation analysis
@@ -21,16 +24,16 @@ ggplot(as.data.frame(as.table(correlation_matrix)), aes(Var1, Var2, fill = Freq)
   scale_fill_gradient2()
 
 # Define control function using random forest with repeated cross-validations for RFE
-control <- rfeControl(functions=rfFuncs, method="cv", number=10, repeats=3)
+control <- rfeControl(functions = rfFuncs, method = "cv", number = 10, repeats = 3)
 
 # Run RFE
-rfe_results <- rfe(numeric_features, target, sizes=c(1:5), rfeControl=control)
+rfe_results <- rfe(numeric_features, target, sizes = c(1:5), rfeControl = control)
 
 # Print the results of RFE
 print(rfe_results)
 
 # Plot the RFE results
-plot(rfe_results, type=c("o", "g"))
+plot(rfe_results, type = c("o", "g"))
 
 # Train-Test Split
 set.seed(42) # For reproducibility
@@ -41,7 +44,7 @@ y_train <- target[training_indices]
 y_test <- target[-training_indices]
 
 # Model Training with SVR
-svm_model <- svm(y_train ~ ., data = X_train, type = 'eps-regression', kernel = 'linear')
+svm_model <- svm(y_train ~ ., data = X_train, type = "eps-regression", kernel = "linear")
 
 # Model Evaluation
 y_pred <- predict(svm_model, newdata = X_test)

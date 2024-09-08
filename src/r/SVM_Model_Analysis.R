@@ -1,70 +1,78 @@
-library(tidyverse)        # For data manipulation and visualization
-library(caret)            # For machine learning
-library(e1071)            # For support vector machines
-library(readxl)           # For reading Excel files
+library(tidyverse) # For data manipulation and visualization
+library(caret) # For machine learning
+library(e1071) # For support vector machines
+library(readxl) # For reading Excel files
+library(readr) # For reading CSV files
+library(ggplot2) # For data visualization
 
-# Load the features and target datasets
-features_path <- '/Users/Saham/desktop/NEW_ML/features.xlsx'
-target_path <- '/Users/Saham/desktop/NEW_ML/target.xlsx'
-features <- read_excel(features_path)
-target <- read_excel(target_path)
+# Read preprocessed data
+features_preprocessed <- read_csv("../../Data/processed/features_preprocessed.csv")
+features_selected <- read_csv("../../Data/processed/features_selected.csv")
+target <- read_excel("../../Data/raw/target.xlsx")
 
-# Combine features and target for splitting
-data <- bind_cols(features, target)
+# Combine features and target
+data_preprocessed <- cbind(features_preprocessed, Target = target$Target)
+data_selected <- cbind(features_selected, Target = target$Target)
 
-# Cross-Validation Setup
-set.seed(42) # For reproducibility
-train_control <- trainControl(method = "cv", number = 10, search = "grid")
+# Function to evaluate model performance
+evaluate_model <- function(model, test_data) {
+  predictions <- predict(model, test_data)
+  mse <- mean((test_data$Target - predictions)^2)
+  rmse <- sqrt(mse)
+  r2 <- 1 - (sum((test_data$Target - predictions)^2) / sum((test_data$Target - mean(test_data$Target))^2))
+  return(list(RMSE = rmse, R2 = r2))
+}
 
-# Hyperparameter Grid
-svm_grid <- expand.grid(
-  C = seq(0.1, 1, by = 0.1), 
-  sigma = seq(0.001, 0.01, by = 0.001)
+# Split data into training and testing sets
+set.seed(42)
+train_index <- createDataPartition(data_selected$Target, p = 0.8, list = FALSE)
+train_data <- data_selected[train_index, ]
+test_data <- data_selected[-train_index, ]
+
+# Train SVM model
+svm_model <- svm(Target ~ ., data = train_data, kernel = "radial", cost = 1, gamma = 0.1)
+
+# Evaluate SVM model
+svm_performance <- evaluate_model(svm_model, test_data)
+
+# Cross-validation
+ctrl <- trainControl(method = "cv", number = 5)
+svm_cv <- train(Target ~ .,
+  data = train_data, method = "svmRadial",
+  trControl = ctrl, tuneLength = 5
 )
 
-# Model Training with Cross-Validation and Hyperparameter Tuning
-svm_model <- train(
-  score ~ ., 
-  data = data,
-  method = "svmRadial",
-  trControl = train_control,
-  tuneGrid = svm_grid,
-  preProcess = c("center", "scale"), # Preprocessing steps
-  metric = "RMSE"
+# Print results
+cat("SVM Model Performance:\n")
+print(svm_performance)
+cat("\nCross-validation Results:\n")
+print(svm_cv$results)
+
+# Actual vs Predicted Plot
+predictions <- predict(svm_model, test_data)
+plot_data <- data.frame(Actual = test_data$Target, Predicted = predictions)
+
+ggplot(plot_data, aes(x = Actual, y = Predicted)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
+  labs(title = "SVM - Actual vs Predicted", x = "Actual Values", y = "Predicted Values") +
+  theme_minimal()
+
+ggsave("../../images/svm_actual_vs_predicted.png", width = 8, height = 6)
+
+# Feature Importance (using linear kernel SVM)
+svm_linear <- svm(Target ~ ., data = train_data, kernel = "linear", cost = 1)
+feature_importance <- abs(t(svm_linear$coefs) %*% svm_linear$SV)
+feature_importance_df <- data.frame(
+  Feature = colnames(train_data)[-ncol(train_data)],
+  Importance = as.vector(feature_importance)
 )
+feature_importance_df <- feature_importance_df[order(feature_importance_df$Importance, decreasing = TRUE), ]
 
-# Model Evaluation on the final selected model
-y_pred <- predict(svm_model, newdata = data)
-mse_svr <- mean((data$score - y_pred)^2)
-rmse_svr <- sqrt(mse_svr)
+ggplot(feature_importance_df, aes(x = reorder(Feature, Importance), y = Importance)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "SVM - Feature Importance", x = "Features", y = "Importance") +
+  theme_minimal()
 
-# Printing the results
-print(list(SVR_Mean_Squared_Error = mse_svr))
-print(list(SVR_Root_Mean_Squared_Error = rmse_svr))
-
-# Save the model if needed
-saveRDS(svm_model, file = "svm_model.rds")
-
-# Optionally, print the model summary
-print(summary(svm_model))
-
-# Save the actual and predicted values to a dataframe
-results_df <- tibble(Actual = data$score, Predicted = y_pred)
-
-# Save the results to a CSV file
-write_csv(results_df, "/Users/Saham/desktop/NEW_ML/predictions3.csv")
-
-# Plot actual vs. predicted values and learning curves
-ggplot(results_df, aes(x = Actual, y = Predicted)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
-  labs(title = "Actual vs Predicted", x = "Actual Score", y = "Predicted Score")
-
-# Learning Curve Plot
-learning_curve_df <- svm_model$results
-ggplot(learning_curve_df, aes(x = C, y = RMSE)) +
-  geom_line() +
-  labs(title = "Learning Curve", x = "Cost (C)", y = "RMSE")
-
-# View the first few results
-head(results_df)
+ggsave("../../images/svm_feature_importance.png", width = 10, height = 8)
