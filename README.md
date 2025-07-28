@@ -1,7 +1,7 @@
 # Comparative Machine Learning Analysis in Bioinformatics
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16539671.svg)](https://doi.org/10.5281/zenodo.16539671)
 
-[![GitHub release](https://img.shields.io/github/v/release/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Contributors](https://img.shields.io/github/contributors/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/graphs/contributors)
+[![GitHub release](https://img.shields.io/github/v/release/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Contributors](https://img.shields.io/github/contributors/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/graphs/contributors) [![ORCID](https://img.shields.io/badge/ORCID-0000--0003--2070--2811-a6ce39?logo=orcid&logoColor=white)](https://orcid.org/0000-0003-2070-2811)
 
 ## Introduction
 This project focuses on comparative machine learning analysis in the field of bioinformatics, specifically examining gene expression data. The analysis involves various machine learning techniques, 
