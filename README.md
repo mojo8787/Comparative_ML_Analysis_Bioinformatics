@@ -1,6 +1,8 @@
 # Comparative Machine Learning Analysis in Bioinformatics
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16539671.svg)](https://doi.org/10.5281/zenodo.16539671)
 
+[![GitHub release](https://img.shields.io/github/v/release/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Contributors](https://img.shields.io/github/contributors/mojo8787/Comparative_ML_Analysis_Bioinformatics.svg)](https://github.com/mojo8787/Comparative_ML_Analysis_Bioinformatics/graphs/contributors)
+
 ## Introduction
 This project focuses on comparative machine learning analysis in the field of bioinformatics, specifically examining gene expression data. The analysis involves various machine learning techniques, 
 including Random Forest, Support Vector Regression (SVR), and other regression models, to predict and analyze gene expression scores.
