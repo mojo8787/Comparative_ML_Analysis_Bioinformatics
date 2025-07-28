@@ -1,4 +1,5 @@
 # Comparative Machine Learning Analysis in Bioinformatics
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16539671.svg)](https://doi.org/10.5281/zenodo.16539671)
 
 ## Introduction
 This project focuses on comparative machine learning analysis in the field of bioinformatics, specifically examining gene expression data. The analysis involves various machine learning techniques, 
