@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+
+# Basic metadata
+title: "Comparative Machine Learning Analysis in Bioinformatics"
+version: "1.0.0"
+date-released: "2025-07-28"
+
+# DOI will be automatically updated by Zenodo upon the first release tag
+# Replace XXXXXXX with the actual Zenodo record number once generated.
+doi: 10.5281/zenodo.XXXXXXX
+
+# Authors
+authors:
+  - family-names: "Younis"
+    given-names: "Motasem"
+    affiliation: "<Your affiliation here>"
+    orcid: "https://orcid.org/0000-0003-2070-2811"
+
+# Repository URL
+repository-code: "https://github.com/USERNAME/Comparative_ML_Analysis_Bioinformatics"
+
+# License
+license: "MIT"
+
+# Keywords (optional; helps indexing)
+keywords:
+  - machine learning
+  - bioinformatics
+  - random forest
+  - support vector regression
+  - kernel methods 

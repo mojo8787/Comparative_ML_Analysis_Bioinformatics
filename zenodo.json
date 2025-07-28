@@ -1,0 +1,28 @@
+{
+  "title": "Comparative Machine Learning Analysis in Bioinformatics",
+  "upload_type": "software",
+  "description": "This repository contains data, scripts, and notebooks for a comparative machine learning analysis applied to bioinformatics datasets. It includes preprocessing steps, model training (Random Forest, Support Vector Regression, kernel methods), hyper-parameter tuning, and visualization utilities written in both Python and R.",
+  "creators": [
+    {
+      "name": "Younis, Motasem",
+      "affiliation": "<Your affiliation here>",
+      "orcid": "0000-0003-2070-2811"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "machine learning",
+    "bioinformatics",
+    "random forest",
+    "support vector regression",
+    "kernel methods"
+  ],
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/USERNAME/Comparative_ML_Analysis_Bioinformatics",
+      "scheme": "url"
+    }
+  ]
+} 
